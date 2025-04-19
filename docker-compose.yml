@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    restart: always
+    ports:
+      - "5678:5678"
+    environment:
+      - DB_TYPE=sqlite
+      - DB_SQLITE_DATABASE=/home/node/.n8n/database.sqlite
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=admin123
+      - N8N_PORT=5678
+      - N8N_EDITOR_BASE_URL=http://91.99.13.66:5678
+      - WEBHOOK_TUNNEL_URL=http://91.99.13.66:5678
+      - N8N_SESSION_COOKIE_NAME=n8n
+      - TZ=America/Sao_Paulo
+    volumes:
+      - ./n8n-data:/home/node/.n8n
+
+  redis:
+    image: redis:alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis-data:/data
