@@ -23,6 +23,5 @@ services:
   redis:
     image: redis:alpine
     restart: always
-    ports:
     volumes:
       - ./redis-data:/data
